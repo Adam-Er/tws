@@ -16,7 +16,7 @@ Lex.tiny is responsible for lexical analysis and defines key words.
 
 parse.tiny defines the grammar for our pascal-like language. It creates an abstract syntax tree in a file named "_TREE"
 
-Constrainer.c takes in the "_TREE" file, and adds constraining information. The primary role of Constrainer.c is to throw out contextual errors when attempting to compile an invalid program. 
+Constrainer.c takes in the "_TREE" file, and adds constraining information. The primary role of Constrainer.c is to throw out contextual errors when attempting to compile a program. 
 
 CodeGenerator.c takes in the constrained tree, and generates machine code for our abstract machine in a "_CODE" file.
 
