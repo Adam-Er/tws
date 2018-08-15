@@ -1,0 +1,25 @@
+To install the TWS:
+
+1. Edit pgen/Makefile.  All but one of lines 12-16 should be
+   commented.  For Linux machines, uncomment line 12.   For CISE Sun
+   machines, uncomment line 15.
+
+2. While in 'tws' directory, simply type 'make'.
+
+This Pascal-like compiler is a project for my Translators class. 
+
+This project uses Tiny, which generates code for the abstract computer. This abstract computer is a stack machine with no addressable registers. The three distinct memories this machine uses are: Code memory, Data memory, and return memory. 
+
+My project only involved adding functionality towards an already implemented, empty compiler. The only files that have been changed for this project are the parse.tiny, lex.tiny, Constrainer.c, and CodeGenerator.c files. 
+
+Lex.tiny is responsible for lexical analysis and defines key words. 
+
+parse.tiny defines the grammar for our pascal-like language. It creates an abstract syntax tree in a file named "_TREE"
+
+Constrainer.c takes in the "_TREE" file, and adds constraining information. The primary role of Constrainer.c is to throw out contextual errors when attempting to compile a program. 
+
+CodeGenerator.c takes in the constrained tree, and generates machine code for our abstract machine in a "_CODE" file.
+
+The interpreter then simulates the execution of the "_CODE" file.
+
+All testing files are located in tws/tiny/test-progs. Files marked pr*.c** tests to see if valid programs obtain the expected results. Files marked pr*.e** tests to see if invalid programs result in the expected compiling errors.  

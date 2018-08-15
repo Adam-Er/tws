@@ -1,0 +1,4 @@
+program x:
+begin
+   output(3mod 2)
+end x.

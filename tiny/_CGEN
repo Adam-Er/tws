@@ -1,0 +1,151 @@
+<<< CODE GENERATOR >>> Processing Node program , Label is  
+<<< CODE GENERATOR >>> Processing Node types , Label is  
+<<< CODE GENERATOR >>> Processing Node type , Label is  
+<<< CODE GENERATOR >>> Processing Node type , Label is  
+<<< CODE GENERATOR >>> Processing Node type , Label is  
+<<< CODE GENERATOR >>> Processing Node consts , Label is  
+<<< CODE GENERATOR >>> Processing Node types , Label is  
+<<< CODE GENERATOR >>> Processing Node dclns , Label is  
+<<< CODE GENERATOR >>> Processing Node var , Label is  
+       LIT    0             
+Incrementing Framesize to 1
+       LIT    0             
+Incrementing Framesize to 2
+       GOTO   L1            
+<<< CODE GENERATOR >>> Processing Node subprogs , Label is  
+<<< CODE GENERATOR >>> Processing Node fnc , Label is  
+Opening Frame: Old Framesize is 2
+Incrementing Framesize to 1
+<<< CODE GENERATOR >>> Processing Node params , Label is  
+<<< CODE GENERATOR >>> Processing Node var , Label is  
+       LIT    0             
+Incrementing Framesize to 2
+<<< CODE GENERATOR >>> Processing Node consts , Label is  
+<<< CODE GENERATOR >>> Processing Node types , Label is  
+<<< CODE GENERATOR >>> Processing Node dclns , Label is  L2
+<<< CODE GENERATOR >>> Processing Node block , Label is  L2
+<<< CODE GENERATOR >>> Processing Node output , Label is  L2
+<<< CODE GENERATOR >>> Processing Node <identifier> , Label is  L2
+Incrementing Framesize to 3
+L2     LLV    1             
+       SOS    OUTPUT        
+Decrementing Framesize to 2
+<<< CODE GENERATOR >>> Processing Node <identifier> , Label is  
+Incrementing Framesize to 3
+       LGV    1             
+       SOS    OUTPUT        
+Decrementing Framesize to 2
+       SOS    OUTPUTL       
+<<< CODE GENERATOR >>> Processing Node assign , Label is  
+<<< CODE GENERATOR >>> Processing Node + , Label is  
+<<< CODE GENERATOR >>> Processing Node <identifier> , Label is  
+Incrementing Framesize to 3
+       LGV    1             
+<<< CODE GENERATOR >>> Processing Node <integer> , Label is  
+       LIT    1             
+Incrementing Framesize to 4
+       BOP    BPLUS         
+Decrementing Framesize to 3
+Decrementing Framesize to 2
+       SGV    1             
+<<< CODE GENERATOR >>> Processing Node if , Label is  
+<<< CODE GENERATOR >>> Processing Node > , Label is  
+<<< CODE GENERATOR >>> Processing Node <identifier> , Label is  
+Incrementing Framesize to 3
+       LLV    1             
+<<< CODE GENERATOR >>> Processing Node <integer> , Label is  
+       LIT    0             
+Incrementing Framesize to 4
+       BOP    BGT           
+Decrementing Framesize to 3
+       COND   L3     L4     
+Decrementing Framesize to 2
+<<< CODE GENERATOR >>> Processing Node return , Label is  L3
+<<< CODE GENERATOR >>> Processing Node <identifier> , Label is  L3
+Incrementing Framesize to 3
+L3     LLV    1             
+       RTN    1             
+Decrementing Framesize to 2
+       GOTO   L5            
+<<< CODE GENERATOR >>> Processing Node return , Label is  L4
+<<< CODE GENERATOR >>> Processing Node <identifier> , Label is  L4
+Incrementing Framesize to 3
+L4     LIT    0             
+       RTN    1             
+Decrementing Framesize to 2
+       NOP                  
+L5     NOP                  
+       LLV    0             
+       RTN    1             
+Closing Frame: Decrementing Current Proc Level to 0
+Closing Frame: Restoring Framesize to 2
+<<< CODE GENERATOR >>> Processing Node block , Label is  L1
+<<< CODE GENERATOR >>> Processing Node assign , Label is  L1
+<<< CODE GENERATOR >>> Processing Node <integer> , Label is  L1
+L1     LIT    13            
+Incrementing Framesize to 3
+Decrementing Framesize to 2
+       SGV    0             
+<<< CODE GENERATOR >>> Processing Node assign , Label is  
+<<< CODE GENERATOR >>> Processing Node - , Label is  
+<<< CODE GENERATOR >>> Processing Node <integer> , Label is  
+       LIT    2             
+Incrementing Framesize to 3
+       UOP    UNEG          
+Decrementing Framesize to 2
+       SGV    1             
+<<< CODE GENERATOR >>> Processing Node output , Label is  
+<<< CODE GENERATOR >>> Processing Node <identifier> , Label is  
+Incrementing Framesize to 3
+       LGV    0             
+       SOS    OUTPUT        
+Decrementing Framesize to 2
+<<< CODE GENERATOR >>> Processing Node <identifier> , Label is  
+Incrementing Framesize to 3
+       LGV    1             
+       SOS    OUTPUT        
+Decrementing Framesize to 2
+       SOS    OUTPUTL       
+<<< CODE GENERATOR >>> Processing Node if , Label is  
+<<< CODE GENERATOR >>> Processing Node call , Label is  
+       LIT    0             
+Incrementing Framesize to 3
+<<< CODE GENERATOR >>> Processing Node <identifier> , Label is  
+Incrementing Framesize to 4
+       LGV    1             
+       CODE   L2            
+Decrementing Framesize to 3
+       CALL   2             
+       COND   L6     L7     
+Decrementing Framesize to 2
+<<< CODE GENERATOR >>> Processing Node output , Label is  L6
+<<< CODE GENERATOR >>> Processing Node <integer> , Label is  L6
+L6     LIT    1             
+Incrementing Framesize to 3
+       SOS    OUTPUT        
+Decrementing Framesize to 2
+       SOS    OUTPUTL       
+       GOTO   L8            
+<<< CODE GENERATOR >>> Processing Node output , Label is  L7
+<<< CODE GENERATOR >>> Processing Node <integer> , Label is  L7
+L7     LIT    0             
+Incrementing Framesize to 3
+       SOS    OUTPUT        
+Decrementing Framesize to 2
+       SOS    OUTPUTL       
+       NOP                  
+L8     NOP                  
+<<< CODE GENERATOR >>> Processing Node output , Label is  
+<<< CODE GENERATOR >>> Processing Node <identifier> , Label is  
+Incrementing Framesize to 3
+       LGV    0             
+       SOS    OUTPUT        
+Decrementing Framesize to 2
+<<< CODE GENERATOR >>> Processing Node <identifier> , Label is  
+Incrementing Framesize to 3
+       LGV    1             
+       SOS    OUTPUT        
+Decrementing Framesize to 2
+       SOS    OUTPUTL       
+<<< CODE GENERATOR >>> Processing Node <null> , Label is  
+       HALT                 

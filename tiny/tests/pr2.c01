@@ -1,0 +1,24 @@
+program pr2c01:
+#
+#  The output should be:
+#
+#         5     6
+#         6     5
+#         1     1
+#         5
+#         2     4
+#         10
+#         3     9
+#         15
+#         4    16
+#         20
+#
+var i: integer;
+begin
+   i := 1;
+   loop
+      output(i);
+      i := i + 1;
+      if (i >= 5) then exit;
+   pool
+end pr2c01.

@@ -1,0 +1,505 @@
+	/****************************************************************
+		      Copyright (C) 1986 by Manuel E. Bermudez
+		      Translated to C - 1991
+	*****************************************************************/
+
+	#include <stdio.h>
+	#include <header/Open_File.h>
+	#include <header/CommandLine.h>
+	#include <header/Table.h>
+	#include <header/Text.h>
+	#include <header/Error.h>
+	#include <header/String_Input.h> 
+	#include <header/Tree.h>
+	#include <header/Dcln.h>
+	#include <header/Constrainer.h>
+
+	#define ProgramNode    1
+	#define TypesNode      2
+	#define TypeNode       3
+	#define DclnsNode      4
+	#define VarNode        5
+	#define IntegerTNode   6
+	#define BooleanTNode   7
+	#define BlockNode      8
+	#define AssignNode     9
+	#define OutputNode     10
+	#define IfNode         11
+	#define WhileNode      12
+	#define RepeatNode     13   
+	#define NullNode       14
+	#define ANDNode        15
+	#define ORNode         16
+	#define LTNode         17
+	#define LENode         18
+	#define EQNode         19
+	#define NEQNode        20
+	#define GENode         21
+	#define GTNode         22
+	#define PlusNode       23
+	#define MinusNode      24
+	#define MultNode       25
+	#define DivNode        26
+	#define ModNode        27
+	#define EXPNode        28
+	#define NotNode        29
+	#define ReadNode       30
+	#define EOFNode        31
+	#define IntegerNode    32
+	#define BooleanNode    33
+	#define IdentifierNode 34
+	#define ForUpNode      35
+	#define ForDownNode    36
+	#define SwapNode       37
+	#define LoopNode       38
+	#define ExitNode       39
+	#define CaseNode       40
+	#define SwitchNode     41
+	#define RangeNode      42
+	#define OtherwiseNode  43
+
+	#define NumberOfNodes  43
+
+	typedef TreeNode UserType;
+
+	/****************************************************************
+	 Add new node names to the end of the array, keeping in strict
+	  order with the define statements above, then adjust the i loop
+	  control variable in InitializeConstrainer().
+	*****************************************************************/
+	char *node[] = { "program", "types", "type", "dclns", "var",
+			 "integer", "boolean", "block", "assign",
+			 "output", "if", "while", "repeat", "<null>",
+			 "and", "or", "<", "<=", "=", "<>", ">=", ">",
+			 "+", "-", "*", "/", "mod", "**", "not", "read",
+			 "eof", "<integer>", "<boolean>", "<identifier>",
+			 "upfor", "downfor", "swap", "loop", "exit", "case",
+			 "switch", "range", "otherwise"
+			};
+
+
+	UserType TypeInteger, TypeBoolean;
+	boolean TraceSpecified;
+	FILE *TraceFile;
+	char *TraceFileName;
+	int NumberTreesRead, index;
+
+
+	void Constrain(void)    
+	{
+	   int i;
+	   InitializeDeclarationTable();
+	   Tree_File = Open_File("_TREE", "r"); 
+	   NumberTreesRead = Read_Trees();
+	   fclose (Tree_File);                     
+	   AddIntrinsics();
+
+	   ProcessNode(RootOfTree(1)); 
+
+	#if 0
+	   PrintDclnTable(stdout);
+	   PrintAllStrings(stdout);
+	   PrintTree(stdout,RootOfTree(1));
+	#endif
+	    
+	   Tree_File = fopen("_TREE", "w");  
+	   Write_Trees();
+	   fclose (Tree_File);                   
+	   if (TraceSpecified) fclose(TraceFile);    
+	}
+
+
+	void InitializeConstrainer (int argc, char *argv[])
+	{          
+	   int i, j;
+	   InitializeTextModule();
+	   InitializeTreeModule();
+	   for (i=0, j=1; i<NumberOfNodes; i++, j++)
+	      String_Array_To_String_Constant (node[i], j); 
+	   index = System_Flag ("-trace", argc, argv);
+	   if (index)                                       
+	   {
+	      TraceSpecified = true; 
+	      TraceFileName = System_Argument ("-trace", "_TRACE", argc, argv);
+	      TraceFile = Open_File(TraceFileName, "w");
+	   }
+	   else
+	      TraceSpecified = false;          
+	}                        
+
+	void AddIntrinsics (void)
+	{
+	   TreeNode TempTree;
+
+	   AddTree (TypesNode, RootOfTree(1), 2);
+
+	   TempTree = Child (RootOfTree(1), 2);
+	   AddTree (TypeNode, TempTree, 1);
+
+	   TempTree = Child (RootOfTree(1), 2);
+	   AddTree (TypeNode, TempTree, 1);
+
+	   TempTree = Child (Child (RootOfTree(1), 2), 1);
+	   AddTree (BooleanTNode, TempTree, 1);
+	 
+	   TempTree = Child (Child (RootOfTree(1), 2), 2);
+	   AddTree (IntegerTNode, TempTree, 1);
+
+	   TempTree = Child (RootOfTree(1), 2);
+	   TypeBoolean = Child(TempTree,1);
+	   TypeInteger = Child(TempTree,2);
+	}
+
+	void ErrorHeader (TreeNode T)
+	{ 
+	   printf ("<<< CONSTRAINER ERROR >>> AT ");
+	   Write_String (stdout,SourceLocation(T));
+	   printf (" : ");
+	   printf ("\n");
+	}
+
+	int NKids (TreeNode T)
+	{
+	   return (Rank(T));
+	}
+
+	UserType Expression (TreeNode T)
+	{
+	   UserType Type1, Type2;
+	   TreeNode Declaration, Temp1, Temp2;
+	   int NodeCount;
+	   if (TraceSpecified)
+	   {
+	      fprintf (TraceFile, "<<< CONSTRAINER >>> : Expn Processor Node ");
+	      Write_String (TraceFile, NodeName(T));
+	      fprintf (TraceFile, "\n");
+	   }
+	     
+	   switch (NodeName(T))
+	   {
+	      case ANDNode :
+	      case ORNode  :
+	      case LTNode  :
+	      case LENode  :
+	      case EQNode  :
+	      case NEQNode :
+	      case GENode  :
+	      case GTNode  :
+		 Type1 = Expression (Child(T,1));
+		 Type2 = Expression (Child(T,2));
+		 if (Type1 != Type2)
+		 {
+		    ErrorHeader(Child(T,1));
+		    printf ("ARGUMENTS FOR COMPARISONS MUST BE TYPE INTEGER\n");
+		    printf ("\n");
+		 }
+		 return (TypeBoolean);
+
+	      case PlusNode :
+	      case MinusNode :
+		 Type1 = Expression (Child(T,1));
+		 if (Rank(T) == 1)
+		    Type2 = TypeInteger;
+		 else
+		    Type2 = Expression (Child(T,2));
+		 if (Type1 != TypeInteger || Type2 != TypeInteger)
+		 {
+		    ErrorHeader(Child(T,1));
+		    printf ("ARGUMENTS OF '+', '-'");
+		    printf ("MUST BE TYPE INTEGER\n");
+		    printf ("\n");
+		 }
+		 return (TypeInteger);
+	      case MultNode :
+	      case DivNode : 
+	      case ModNode :
+	      case EXPNode :
+		 Type1 = Expression (Child(T,1));
+		 Type2 = Expression (Child(T,2));
+		 if (Type1 != TypeInteger || Type2 != TypeInteger)
+		 {
+		    ErrorHeader(Child(T,1));
+		    printf ("ARGUMENTS OF '+', '-', '*', '/', 'mod'");
+		    printf ("MUST BE TYPE INTEGER\n");
+		    printf ("\n");
+		 }
+		 return (TypeInteger);
+	  
+	      case NotNode :
+		 Type1 = Expression(Child(T,1));
+		 if (Type1 != TypeBoolean)
+		 {
+		    ErrorHeader(Child(T,1));
+		    printf("ARGUMENTS OF 'not'");
+		    printf("MUST BE TYPE BOOLEAN\n");
+		    printf("\n");
+		 }
+		 return (TypeBoolean);
+		 
+	      case ReadNode :
+		 return (TypeInteger);
+
+	      case EOFNode :
+		 return (TypeBoolean);
+
+	      case IntegerNode : 
+		 return (TypeInteger);
+	    
+	      case BooleanNode :
+		 return (TypeBoolean);  
+
+	      case IdentifierNode :
+		 Declaration = Lookup (NodeName(Child(T,1)), T);
+		 if (Declaration != NullDeclaration)
+		 {
+		    Decorate (T, Declaration);
+		    return (Decoration(Declaration));
+		 }
+		 else
+		    return (TypeInteger);
+
+	      default :
+		 ErrorHeader(T);
+		 printf ( "UNKNOWN NODE NAME ");
+		 Write_String (stdout,NodeName(T));
+		 printf ("\n");
+
+	   }  /* end switch */
+	}  /* end Expression */
+
+
+	void ProcessNode (TreeNode T) 
+	{
+	   int Kid, N;
+	   String Name1, Name2;
+	   TreeNode Type1, Type2, Type3;
+	   if (TraceSpecified)
+	   {
+	      fprintf (TraceFile,
+		       "<<< CONSTRAINER >>> : Stmt Processor Node ");
+	      Write_String (TraceFile, NodeName(T));
+	      fprintf (TraceFile, "\n");
+	   }
+
+	   switch (NodeName(T))
+	   {
+	      case ProgramNode :
+		 DTEnter("<loop_ctxt>", T, T);
+		 DTEnter("<for_ctxt>", T, T); 
+		 Name1 = NodeName(Child(Child(T,1),1));
+		 Name2 = NodeName(Child(Child(T,NKids(T)),1));
+		 if (Name1 != Name2)
+		 {
+		   ErrorHeader(T);
+		   printf ("PROGRAM NAMES DO NOT MATCH\n");
+		   printf ("\n");
+		 }
+		 for (Kid = 2; Kid <= NKids(T)-1; Kid++)
+		    ProcessNode (Child(T,Kid));
+		 break;
+
+	      case TypesNode :  
+		 for (Kid = 1; Kid <= NKids(T); Kid++)
+		    ProcessNode (Child(T,Kid));
+		 break;
+
+	      case TypeNode :
+		 DTEnter (NodeName(Child(T,1)),T,T);
+		 break;
+
+	      case DclnsNode :
+		 for (Kid = 1; Kid <= NKids(T); Kid++)
+		    ProcessNode (Child(T,Kid));
+		 break;
+
+	      case VarNode :
+
+		 Name1 = NodeName (Child(T, NKids(T)));
+		 Type1 = Lookup (Name1,T);
+		 for (Kid  = 1; Kid < NKids(T); Kid++)
+		 {
+		    DTEnter (NodeName(Child(Child(T,Kid),1)), Child(T,Kid), T);
+		    Decorate (Child(T,Kid), Type1);
+		 }
+		 break;
+
+	      case BlockNode :
+		 for (Kid = 1; Kid <= NKids(T); Kid++) {
+		    ProcessNode (Child(T,Kid));
+		 }    
+		
+		 break;
+
+	      case AssignNode :
+         Type1 = Expression (Child(T,1));
+         Type2 = Expression (Child(T,2));
+         if (Type1 != Type2)
+         {
+            ErrorHeader(T);
+            printf ("ASSIGNMENT TYPES DO NOT MATCH\n");
+            printf ("\n");
+         }
+         Type1 = Lookup("<for_ctxt>", T);
+         while (NodeName(Type1) != ProgramNode) {
+            if (NodeName(Child(Child(Type1,1),1)) == NodeName(Child(Child(T,1),1))) {
+               ErrorHeader(T);
+               printf("Cannot assign to loop control variable of enclosing loop!\n\n");
+            }
+            Type1 = Decoration(Type1);
+         }
+         break;
+
+      case SwapNode :
+         if (NodeName(Child(T,1)) == IntegerNode || NodeName(Child(T,2)) == IntegerNode)
+         {
+	    ErrorHeader(T);
+            printf("SWAP WITH INTEGER\n\n");
+         } else if (NodeName(Child(T,1)) != IdentifierNode || NodeName(Child(T,2)) != IdentifierNode) {
+            ErrorHeader(T);
+            printf("Cannot swap with non-variables\n\n");
+         }
+         Expression(Child(T,1));
+         Expression(Child(T,2));
+         Type1 = Lookup("<for_ctxt>", T);
+         while (NodeName(Type1) != ProgramNode) {
+            if (NodeName(Child(Child(Type1,1),1)) == NodeName(Child(Child(T,1),1)) || NodeName(Child(Child(Type1,1),1)) == NodeName(Child(Child(T,2),1))) {
+              ErrorHeader(T);
+              printf("Cannot swap with loop control variable!\n\n");
+            }
+            Type1 = Decoration(Type1);
+         }
+         break;
+
+      case OutputNode :
+         for (Kid = 1; Kid <= NKids(T); Kid++)
+            if (Expression (Child(T,Kid)) != TypeInteger)
+            {
+               ErrorHeader(T);
+               printf ("OUTPUT EXPRESSION MUST BE TYPE INTEGER\n");
+               printf ("\n");
+            }
+         break;
+
+      case IfNode :
+         if (Expression (Child(T,1)) != TypeBoolean)
+         {
+            ErrorHeader(T);
+            printf ("CONTROL EXPRESSION OF 'IF' STMT");
+            printf (" IS NOT TYPE BOOLEAN\n");
+            printf ("\n");
+         } 
+         ProcessNode (Child(T,2));
+         if (Rank(T) == 3) {
+            ProcessNode (Child(T,3));
+         }
+         break;
+
+      case WhileNode :
+         if (Expression (Child(T,1)) != TypeBoolean)
+         {
+            ErrorHeader(T);
+            printf ("WHILE EXPRESSION NOT OF TYPE BOOLEAN\n");
+            printf ("\n");
+         }
+         ProcessNode (Child(T,2));
+         break;
+
+      case ForDownNode :
+      case ForUpNode :     
+         Type1 = Lookup("<for_ctxt>", T);
+         Decorate(T, Type1);
+         OpenScope();
+         DTEnter("<for_ctxt>", T, T);
+         DTEnter("<loop_ctxt>", T, T);
+         if (Expression(Child(T,1)) != Expression(Child(T,2))) {
+            ErrorHeader(T);
+            printf("For loop control variable doesn't match start condition!\n\n");
+         }
+         Expression(Child(T,3));
+         ProcessNode(Child(T,4));
+         while (NodeName(Type1) != ProgramNode) {
+            if (NodeName(Child(Child(Type1,1),1)) == NodeName(Child(Child(T,1),1))) {
+               ErrorHeader(T);
+               printf("Please use different control variables for nested loops.\n\n");
+            }
+            Type1 = Decoration(Type1);
+         }
+         CloseScope();
+	 break;
+
+      case LoopNode:
+         OpenScope();	 
+         DTEnter("<loop_ctxt>", T, T);
+         for (Kid = 1; Kid <= Rank(T); Kid++)  {
+	    ProcessNode (Child(T,Kid));
+         }
+         if (NodeName(Decoration(T)) == 0) {
+            printf("Warning: No exit statement in loop!\n\n");
+         }
+         CloseScope();
+         break;
+
+      case RepeatNode :
+         if (Expression (Child(T,Rank(T))) != TypeBoolean)
+         {
+            ErrorHeader(T);
+	    printf ("REPEAT EXPRESSION NOT OF TYPE BOOLEAN\n");
+            printf ("\n");
+         }
+         for (Kid = 1; Kid < Rank(T); Kid++) {
+            ProcessNode(Child(T,Kid));
+         }
+         break;
+
+      case ExitNode :
+         Type1 = Lookup("<loop_ctxt>", T);
+         if (NodeName(Type1) == ForUpNode || NodeName(Type1) == ForDownNode) {
+            ErrorHeader(T);
+            printf("Cannot exit from a for loop!\n\n");
+         } else if (NodeName(Type1) != LoopNode) {
+            ErrorHeader(T);
+	    printf("No pool-loop detected for exit statement!\n\n");
+         }
+         Decorate(Type1, T);
+         Decorate(T, Type1);
+         break;
+     
+      case CaseNode : 
+         if (NodeName(Child(T,1)) != IdentifierNode) {
+            ErrorHeader(T);
+            printf("No variable detected for case statement!\n\n");
+         }
+         for (Kid = 2; Kid <= Rank(T); Kid++) {
+            ProcessNode(Child(T,Kid));
+         }
+         break;
+ 
+      case SwitchNode :
+         ProcessNode(Child(T,1));
+         ProcessNode(Child(T,2));
+         break;
+
+      case RangeNode :
+         if (NodeName(Child(T,1)) != IntegerNode) {
+            ErrorHeader(T);
+            printf("Cases require integer value!\n\n");
+         }
+         else if (Rank(T) == 2 && NodeName(Child(T,2)) != IntegerNode) {
+            ErrorHeader(T);
+            printf("Cases require integer values!\n\n");
+         }
+         break;
+      case OtherwiseNode :
+         ProcessNode(Child(T,1));
+         break;
+      case NullNode : 
+          break;
+
+      default :
+         ErrorHeader(T);
+         printf ("UNKNOWN NODE NAME ");
+         Write_String (stdout,NodeName(T));
+         printf ("\n");
+
+   }  /* end switch */
+}  /* end ProcessNode */

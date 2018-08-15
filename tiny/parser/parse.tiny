@@ -1,0 +1,95 @@
+%%
+Tiny       -> PROGRAM Name ':' Consts Types Dclns SubProgs Body Name '.'=> "program";
+
+Consts     -> CONST (Const ';')+                        => "consts"
+           ->                                           => "consts";
+Const      -> Name '=' Expression                       => "const";
+
+Types      -> TYPE (Type ';')*                          => "types"
+           ->                                           => "types";
+
+Type       -> Name '=' (Name | Lit)                     => "type";
+
+Lit        -> '(' Name list ',' ')'                     => "lit";
+
+Dclns      -> VAR (Var ';')*				=> "dclns"
+           -> 					     	=> "dclns";
+
+Var        -> Name list ',' ':' Name			=> "var";
+
+SubProgs   -> (Procs)*                                  => "subprogs";
+
+Procs      -> FUNCTION Name Params ':' Name ';' Consts Types Dclns Body Name ';'          => "fnc"
+           -> PROCEDURE Name Params ';' Consts Types Dclns Body Name ';'                  => "proc";
+Params     -> ('(' (Var list ';')? ')')?                => "params";
+
+Body       -> BEGINX Statement list ';' END      	=> "block";
+
+Switch     -> Vals ':' Statement ';'                    => "switch";
+
+Vals       -> Primary (RANGE Primary)?                  => "range";
+
+Statement  -> Name ASSIGNMENT Expression          	=> "assign"
+           -> OUTPUT '(' Expression list ',' ')'        => "output"
+           -> IF Expression THEN Statement
+                            (ELSE Statement)?       	=> "if"
+           -> WHILE Expression DO Statement      	=> "while"
+	   -> FOR Name ASSIGNMENT Expression TO Expression DO Statement     => "upfor"
+	   -> FOR Name ASSIGNMENT Expression DOWNTO Expression DO Statement => "downfor"
+           -> REPEAT Statement (';' Statement)* UNTIL Expression            => "repeat"
+           -> LOOP Statement list ';' POOL 		=> "loop"
+           -> CASE Expression OF (Switch)* (Otherwise)? END => "case"
+           -> Primary SWAP Primary 			=> "swap"
+           -> EXIT					=> "exit"
+           -> READ '(' Name list ',' ')'                => "read"
+           -> Body
+           -> Switch
+           -> Name '('( Expression list ',')? ')'       => "call"
+           -> RETURN (Expression)?                      => "return"
+	   ->                                        	=> "<null>";
+
+Otherwise  -> OTHERWISE (Statement (';')?)?             => "otherwise";
+
+Expression -> Term
+	   -> Term LT  Term                             => "<"
+           -> Term LE Term				=> "<="
+           -> Term '=' Term                             => "="
+           -> Term NEQ Term                             => "<>"
+           -> Term GE Term                              => ">="
+           -> Term GT  Term                             => ">";
+
+Term       -> Factor
+	   -> Term '+' Factor				=> "+"
+           -> Term '-' Factor				=> "-"
+           -> Term OR Factor                            => "or";
+
+Factor     -> Factor '*' Unary                          => "*"
+           -> Factor '/' Unary                          => "/"
+           -> Factor MOD Unary                          => "mod" 
+           -> Factor AND Unary                          => "and"
+           -> Unary;    
+
+Unary      -> '-' Unary                                 => "-"
+           -> '+' Unary                                 => "+"
+           -> NOT Unary                                 => "not"
+           -> Super;
+
+Super      -> Primary EXP Super                         => "**"
+           -> Primary;
+
+Primary    -> EOFF                                      => "eof"
+           -> INTEGER_NUM                               => "<integer>"
+           -> CHAR_NUM                                  => "<char>"
+           -> STR					=> "<string>"
+           -> SUCC '(' Expression ')'                   => "succ"
+           -> PRED '(' Expression ')'                   => "pred"
+           -> ORD  '(' Expression ')'                   => "ord"
+           -> CHR  '(' Expression ')'                   => "chr"
+           -> Name '(' (Expression list ',')? ')'       => "call"
+           -> Name    
+           -> '(' Expression ')';
+
+
+
+
+Name       -> IDENTIFIER				=> "<identifier>";

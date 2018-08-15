@@ -1,0 +1,3827 @@
+State 200 contains 1 shift/reduce conflict.
+State 207 contains 1 reduce/reduce conflict.
+
+Grammar
+rule 1    Tiny -> PROGRAM Name ':' Consts Types Dclns SubProgs Body Name '.'
+rule 2    Consts -> CONST Consts_1
+rule 3    Consts ->		/* empty */
+rule 4    Consts_1 -> Const ';'
+rule 5    Consts_1 -> Const ';' Consts_1
+rule 6    Const -> Name '=' Expression
+rule 7    Types -> TYPE Types_1
+rule 8    Types ->		/* empty */
+rule 9    Types_1 ->		/* empty */
+rule 10   Types_1 -> Type ';' Types_1
+rule 11   Type -> Name '=' Name
+rule 12   Type -> Name '=' Lit
+rule 13   Lit -> '(' Lit_1
+rule 14   Lit_1 -> Name ')'
+rule 15   Lit_1 -> Name ',' Lit_1
+rule 16   Dclns -> VAR Dclns_1
+rule 17   Dclns ->		/* empty */
+rule 18   Dclns_1 ->		/* empty */
+rule 19   Dclns_1 -> Var ';' Dclns_1
+rule 20   Var -> Var_1
+rule 21   Var_1 -> Name ':' Name
+rule 22   Var_1 -> Name ',' Var_1
+rule 23   SubProgs -> SubProgs_1
+rule 24   SubProgs_1 ->		/* empty */
+rule 25   SubProgs_1 -> Procs SubProgs_1
+rule 26   Procs -> FUNCTION Name Params ':' Name ';' Consts Types Dclns Body Name ';'
+rule 27   Procs -> PROCEDURE Name Params ';' Consts Types Dclns Body Name ';'
+rule 28   Params -> Params_1
+rule 29   Params_1 ->		/* empty */
+rule 30   Params_1 -> '(' Params_1_1
+rule 31   Params_1_1 -> ')'
+rule 32   Params_1_1 -> Params_1_1_1
+rule 33   Params_1_1_1 -> Var ')'
+rule 34   Params_1_1_1 -> Var ';' Params_1_1_1
+rule 35   Body -> BEGINX Body_1
+rule 36   Body_1 -> Statement END
+rule 37   Body_1 -> Statement ';' Body_1
+rule 38   Switch -> Vals ':' Statement ';'
+rule 39   Vals -> Primary Vals_1
+rule 40   Vals_1 ->		/* empty */
+rule 41   Vals_1 -> RANGE Primary
+rule 42   Statement -> Name ASSIGNMENT Expression
+rule 43   Statement -> OUTPUT '(' Statement_1
+rule 44   Statement -> IF Expression THEN Statement Statement_1_1
+rule 45   Statement -> WHILE Expression DO Statement
+rule 46   Statement -> FOR Name ASSIGNMENT Expression TO Expression DO Statement
+rule 47   Statement -> FOR Name ASSIGNMENT Expression DOWNTO Expression DO Statement
+rule 48   Statement -> REPEAT Statement Statement_1_1_1
+rule 49   Statement -> LOOP Statement_1_1_1_1
+rule 50   Statement -> CASE Expression OF Statement_1_1_1_1_1
+rule 51   Statement -> Primary SWAP Primary
+rule 52   Statement -> EXIT
+rule 53   Statement -> READ '(' Statement_1_1_1_1_1_1
+rule 54   Statement -> Body
+rule 55   Statement -> Switch
+rule 56   Statement -> Name '(' Statement_1_1_1_1_1_1_1
+rule 57   Statement -> RETURN Statement_1_1_1_1_1_1_1_1
+rule 58   Statement ->		/* empty */
+rule 59   Statement_1_1_1_1_1_1_1_1 ->		/* empty */
+rule 60   Statement_1_1_1_1_1_1_1_1 -> Expression
+rule 61   Statement_1_1_1_1_1_1_1 -> ')'
+rule 62   Statement_1_1_1_1_1_1_1 -> Statement_1_1_1_1_1_1_1_1_1
+rule 63   Statement_1_1_1_1_1_1_1_1_1 -> Expression ')'
+rule 64   Statement_1_1_1_1_1_1_1_1_1 -> Expression ',' Statement_1_1_1_1_1_1_1_1_1
+rule 65   Statement_1_1_1_1_1_1 -> Name ')'
+rule 66   Statement_1_1_1_1_1_1 -> Name ',' Statement_1_1_1_1_1_1
+rule 67   Statement_1_1_1_1_1 -> Statement_1_1_1_1_1_1_1_1_1_1
+rule 68   Statement_1_1_1_1_1 -> Switch Statement_1_1_1_1_1
+rule 69   Statement_1_1_1_1_1_1_1_1_1_1 -> END
+rule 70   Statement_1_1_1_1_1_1_1_1_1_1 -> Otherwise END
+rule 71   Statement_1_1_1_1 -> Statement POOL
+rule 72   Statement_1_1_1_1 -> Statement ';' Statement_1_1_1_1
+rule 73   Statement_1_1_1 -> UNTIL Expression
+rule 74   Statement_1_1_1 -> ';' Statement Statement_1_1_1
+rule 75   Statement_1_1 ->		/* empty */
+rule 76   Statement_1_1 -> ELSE Statement
+rule 77   Statement_1 -> Expression ')'
+rule 78   Statement_1 -> Expression ',' Statement_1
+rule 79   Otherwise -> OTHERWISE Otherwise_1
+rule 80   Otherwise_1 ->		/* empty */
+rule 81   Otherwise_1 -> Statement Otherwise_1_1
+rule 82   Otherwise_1_1 ->		/* empty */
+rule 83   Otherwise_1_1 -> ';'
+rule 84   Expression -> Term
+rule 85   Expression -> Term LT Term
+rule 86   Expression -> Term LE Term
+rule 87   Expression -> Term '=' Term
+rule 88   Expression -> Term NEQ Term
+rule 89   Expression -> Term GE Term
+rule 90   Expression -> Term GT Term
+rule 91   Term -> Factor
+rule 92   Term -> Term '+' Factor
+rule 93   Term -> Term '-' Factor
+rule 94   Term -> Term OR Factor
+rule 95   Factor -> Factor '*' Unary
+rule 96   Factor -> Factor '/' Unary
+rule 97   Factor -> Factor MOD Unary
+rule 98   Factor -> Factor AND Unary
+rule 99   Factor -> Unary
+rule 100  Unary -> '-' Unary
+rule 101  Unary -> '+' Unary
+rule 102  Unary -> NOT Unary
+rule 103  Unary -> Super
+rule 104  Super -> Primary EXP Super
+rule 105  Super -> Primary
+rule 106  Primary -> EOFF
+rule 107  Primary -> INTEGER_NUM
+rule 108  Primary -> CHAR_NUM
+rule 109  Primary -> STR
+rule 110  Primary -> SUCC '(' Expression ')'
+rule 111  Primary -> PRED '(' Expression ')'
+rule 112  Primary -> ORD '(' Expression ')'
+rule 113  Primary -> CHR '(' Expression ')'
+rule 114  Primary -> Name '(' Primary_1
+rule 115  Primary -> Name
+rule 116  Primary -> '(' Expression ')'
+rule 117  Primary_1 -> ')'
+rule 118  Primary_1 -> Primary_1_1
+rule 119  Primary_1_1 -> Expression ')'
+rule 120  Primary_1_1 -> Expression ',' Primary_1_1
+rule 121  Name -> IDENTIFIER
+
+Terminals, with rules where they appear
+
+$ (-1)
+'(' (40) 13 30 43 53 56 110 111 112 113 114 116
+')' (41) 14 31 33 61 63 65 77 110 111 112 113 116 117 119
+'*' (42) 95
+'+' (43) 92 101
+',' (44) 15 22 64 66 78 120
+'-' (45) 93 100
+'.' (46) 1
+'/' (47) 96
+':' (58) 1 21 26 38
+';' (59) 4 5 10 19 26 27 34 37 38 72 74 83
+'=' (61) 6 11 12 87
+error (256)
+NEQ (258) 88
+END (259) 36 69 70
+STR (260) 109
+EOFF (261) 106
+TO (262) 46
+VAR (263) 16
+IDENTIFIER (264) 121
+CHR (265) 113
+POOL (266) 71
+CHAR_NUM (267) 108
+IF (268) 44
+FUNCTION (269) 26
+READ (270) 53
+REPEAT (271) 48
+ELSE (272) 76
+RETURN (273) 57
+RANGE (274) 41
+UNTIL (275) 73
+SWAP (276) 51
+FOR (277) 46 47
+THEN (278) 44
+OF (279) 50
+MOD (280) 97
+GT (281) 90
+CASE (282) 50
+WHILE (283) 45
+OUTPUT (284) 43
+EXIT (285) 52
+PROCEDURE (286) 27
+CONST (287) 2
+LE (288) 86
+PRED (289) 111
+NOT (290) 102
+DO (291) 45 46 47
+BEGINX (292) 35
+ORD (293) 112
+INTEGER_NUM (294) 107
+AND (295) 98
+EXP (296) 104
+LOOP (297) 49
+SUCC (298) 110
+GE (299) 89
+TYPE (300) 7
+OR (301) 94
+LT (302) 85
+OTHERWISE (303) 79
+ASSIGNMENT (304) 42 46 47
+PROGRAM (305) 1
+DOWNTO (306) 47
+
+Nonterminals, with rules where they appear
+
+Tiny (63)
+    on left: 1
+Consts (64)
+    on left: 2 3, on right: 1 26 27
+Consts_1 (65)
+    on left: 4 5, on right: 2 5
+Const (66)
+    on left: 6, on right: 4 5
+Types (67)
+    on left: 7 8, on right: 1 26 27
+Types_1 (68)
+    on left: 9 10, on right: 7 10
+Type (69)
+    on left: 11 12, on right: 10
+Lit (70)
+    on left: 13, on right: 12
+Lit_1 (71)
+    on left: 14 15, on right: 13 15
+Dclns (72)
+    on left: 16 17, on right: 1 26 27
+Dclns_1 (73)
+    on left: 18 19, on right: 16 19
+Var (74)
+    on left: 20, on right: 19 33 34
+Var_1 (75)
+    on left: 21 22, on right: 20 22
+SubProgs (76)
+    on left: 23, on right: 1
+SubProgs_1 (77)
+    on left: 24 25, on right: 23 25
+Procs (78)
+    on left: 26 27, on right: 25
+Params (79)
+    on left: 28, on right: 26 27
+Params_1 (80)
+    on left: 29 30, on right: 28
+Params_1_1 (81)
+    on left: 31 32, on right: 30
+Params_1_1_1 (82)
+    on left: 33 34, on right: 32 34
+Body (83)
+    on left: 35, on right: 1 26 27 54
+Body_1 (84)
+    on left: 36 37, on right: 35 37
+Switch (85)
+    on left: 38, on right: 55 68
+Vals (86)
+    on left: 39, on right: 38
+Vals_1 (87)
+    on left: 40 41, on right: 39
+Statement (88)
+    on left: 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58,
+    on right: 36 37 38 44 45 46 47 48 71 72 74 76 81
+Statement_1_1_1_1_1_1_1_1 (89)
+    on left: 59 60, on right: 57
+Statement_1_1_1_1_1_1_1 (90)
+    on left: 61 62, on right: 56
+Statement_1_1_1_1_1_1_1_1_1 (91)
+    on left: 63 64, on right: 62 64
+Statement_1_1_1_1_1_1 (92)
+    on left: 65 66, on right: 53 66
+Statement_1_1_1_1_1 (93)
+    on left: 67 68, on right: 50 68
+Statement_1_1_1_1_1_1_1_1_1_1 (94)
+    on left: 69 70, on right: 67
+Statement_1_1_1_1 (95)
+    on left: 71 72, on right: 49 72
+Statement_1_1_1 (96)
+    on left: 73 74, on right: 48 74
+Statement_1_1 (97)
+    on left: 75 76, on right: 44
+Statement_1 (98)
+    on left: 77 78, on right: 43 78
+Otherwise (99)
+    on left: 79, on right: 70
+Otherwise_1 (100)
+    on left: 80 81, on right: 79
+Otherwise_1_1 (101)
+    on left: 82 83, on right: 81
+Expression (102)
+    on left: 84 85 86 87 88 89 90, on right: 6 42 44 45 46 47 50 60
+    63 64 73 77 78 110 111 112 113 116 119 120
+Term (103)
+    on left: 91 92 93 94, on right: 84 85 86 87 88 89 90 92 93 94
+Factor (104)
+    on left: 95 96 97 98 99, on right: 91 92 93 94 95 96 97 98
+Unary (105)
+    on left: 100 101 102 103, on right: 95 96 97 98 99 100 101 102
+Super (106)
+    on left: 104 105, on right: 103 104
+Primary (107)
+    on left: 106 107 108 109 110 111 112 113 114 115 116,
+    on right: 39 41 51 104 105
+Primary_1 (108)
+    on left: 117 118, on right: 114
+Primary_1_1 (109)
+    on left: 119 120, on right: 118 120
+Name (110)
+    on left: 121, on right: 1 6 11 12 14 15 21 22 26 27 42 46 47 56
+    65 66 114 115
+
+
+state 0
+
+    PROGRAM	shift, and go to state 1
+
+    Tiny	go to state 251
+
+
+
+state 1
+
+    Tiny  ->  PROGRAM . Name ':' Consts Types Dclns SubProgs Body Name '.'   (rule 1)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Name	go to state 3
+
+
+
+state 2
+
+    Name  ->  IDENTIFIER .   (rule 121)
+
+    $default	reduce using rule 121 (Name)
+
+
+
+state 3
+
+    Tiny  ->  PROGRAM Name . ':' Consts Types Dclns SubProgs Body Name '.'   (rule 1)
+
+    ':' 	shift, and go to state 4
+
+
+
+state 4
+
+    Tiny  ->  PROGRAM Name ':' . Consts Types Dclns SubProgs Body Name '.'   (rule 1)
+
+    CONST	shift, and go to state 5
+
+    $default	reduce using rule 3 (Consts)
+
+    Consts	go to state 6
+
+
+
+state 5
+
+    Consts  ->  CONST . Consts_1   (rule 2)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Consts_1	go to state 7
+    Const	go to state 8
+    Name	go to state 9
+
+
+
+state 6
+
+    Tiny  ->  PROGRAM Name ':' Consts . Types Dclns SubProgs Body Name '.'   (rule 1)
+
+    TYPE	shift, and go to state 10
+
+    $default	reduce using rule 8 (Types)
+
+    Types	go to state 11
+
+
+
+state 7
+
+    Consts  ->  CONST Consts_1 .   (rule 2)
+
+    $default	reduce using rule 2 (Consts)
+
+
+
+state 8
+
+    Consts_1  ->  Const . ';'   (rule 4)
+    Consts_1  ->  Const . ';' Consts_1   (rule 5)
+
+    ';' 	shift, and go to state 12
+
+
+
+state 9
+
+    Const  ->  Name . '=' Expression   (rule 6)
+
+    '=' 	shift, and go to state 13
+
+
+
+state 10
+
+    Types  ->  TYPE . Types_1   (rule 7)
+
+    IDENTIFIER	shift, and go to state 2
+
+    $default	reduce using rule 9 (Types_1)
+
+    Types_1	go to state 14
+    Type	go to state 15
+    Name	go to state 16
+
+
+
+state 11
+
+    Tiny  ->  PROGRAM Name ':' Consts Types . Dclns SubProgs Body Name '.'   (rule 1)
+
+    VAR 	shift, and go to state 17
+
+    $default	reduce using rule 17 (Dclns)
+
+    Dclns	go to state 18
+
+
+
+state 12
+
+    Consts_1  ->  Const ';' .   (rule 4)
+    Consts_1  ->  Const ';' . Consts_1   (rule 5)
+
+    IDENTIFIER	shift, and go to state 2
+
+    $default	reduce using rule 4 (Consts_1)
+
+    Consts_1	go to state 19
+    Const	go to state 8
+    Name	go to state 9
+
+
+
+state 13
+
+    Const  ->  Name '=' . Expression   (rule 6)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 32
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 14
+
+    Types  ->  TYPE Types_1 .   (rule 7)
+
+    $default	reduce using rule 7 (Types)
+
+
+
+state 15
+
+    Types_1  ->  Type . ';' Types_1   (rule 10)
+
+    ';' 	shift, and go to state 39
+
+
+
+state 16
+
+    Type  ->  Name . '=' Name   (rule 11)
+    Type  ->  Name . '=' Lit   (rule 12)
+
+    '=' 	shift, and go to state 40
+
+
+
+state 17
+
+    Dclns  ->  VAR . Dclns_1   (rule 16)
+
+    IDENTIFIER	shift, and go to state 2
+
+    $default	reduce using rule 18 (Dclns_1)
+
+    Dclns_1	go to state 41
+    Var 	go to state 42
+    Var_1	go to state 43
+    Name	go to state 44
+
+
+
+state 18
+
+    Tiny  ->  PROGRAM Name ':' Consts Types Dclns . SubProgs Body Name '.'   (rule 1)
+
+    FUNCTION	shift, and go to state 45
+    PROCEDURE	shift, and go to state 46
+
+    $default	reduce using rule 24 (SubProgs_1)
+
+    SubProgs	go to state 47
+    SubProgs_1	go to state 48
+    Procs	go to state 49
+
+
+
+state 19
+
+    Consts_1  ->  Const ';' Consts_1 .   (rule 5)
+
+    $default	reduce using rule 5 (Consts_1)
+
+
+
+state 20
+
+    Primary  ->  STR .   (rule 109)
+
+    $default	reduce using rule 109 (Primary)
+
+
+
+state 21
+
+    Primary  ->  EOFF .   (rule 106)
+
+    $default	reduce using rule 106 (Primary)
+
+
+
+state 22
+
+    Primary  ->  CHR . '(' Expression ')'   (rule 113)
+
+    '(' 	shift, and go to state 50
+
+
+
+state 23
+
+    Primary  ->  CHAR_NUM .   (rule 108)
+
+    $default	reduce using rule 108 (Primary)
+
+
+
+state 24
+
+    Primary  ->  PRED . '(' Expression ')'   (rule 111)
+
+    '(' 	shift, and go to state 51
+
+
+
+state 25
+
+    Unary  ->  NOT . Unary   (rule 102)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Unary	go to state 52
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 26
+
+    Primary  ->  ORD . '(' Expression ')'   (rule 112)
+
+    '(' 	shift, and go to state 53
+
+
+
+state 27
+
+    Primary  ->  INTEGER_NUM .   (rule 107)
+
+    $default	reduce using rule 107 (Primary)
+
+
+
+state 28
+
+    Primary  ->  SUCC . '(' Expression ')'   (rule 110)
+
+    '(' 	shift, and go to state 54
+
+
+
+state 29
+
+    Primary  ->  '(' . Expression ')'   (rule 116)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 55
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 30
+
+    Unary  ->  '+' . Unary   (rule 101)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Unary	go to state 56
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 31
+
+    Unary  ->  '-' . Unary   (rule 100)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Unary	go to state 57
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 32
+
+    Const  ->  Name '=' Expression .   (rule 6)
+
+    $default	reduce using rule 6 (Const)
+
+
+
+state 33
+
+    Expression  ->  Term .   (rule 84)
+    Expression  ->  Term . LT Term   (rule 85)
+    Expression  ->  Term . LE Term   (rule 86)
+    Expression  ->  Term . '=' Term   (rule 87)
+    Expression  ->  Term . NEQ Term   (rule 88)
+    Expression  ->  Term . GE Term   (rule 89)
+    Expression  ->  Term . GT Term   (rule 90)
+    Term  ->  Term . '+' Factor   (rule 92)
+    Term  ->  Term . '-' Factor   (rule 93)
+    Term  ->  Term . OR Factor   (rule 94)
+
+    NEQ 	shift, and go to state 58
+    GT  	shift, and go to state 59
+    LE  	shift, and go to state 60
+    GE  	shift, and go to state 61
+    OR  	shift, and go to state 62
+    LT  	shift, and go to state 63
+    '=' 	shift, and go to state 64
+    '+' 	shift, and go to state 65
+    '-' 	shift, and go to state 66
+
+    $default	reduce using rule 84 (Expression)
+
+
+
+state 34
+
+    Term  ->  Factor .   (rule 91)
+    Factor  ->  Factor . '*' Unary   (rule 95)
+    Factor  ->  Factor . '/' Unary   (rule 96)
+    Factor  ->  Factor . MOD Unary   (rule 97)
+    Factor  ->  Factor . AND Unary   (rule 98)
+
+    MOD 	shift, and go to state 67
+    AND 	shift, and go to state 68
+    '*' 	shift, and go to state 69
+    '/' 	shift, and go to state 70
+
+    $default	reduce using rule 91 (Term)
+
+
+
+state 35
+
+    Factor  ->  Unary .   (rule 99)
+
+    $default	reduce using rule 99 (Factor)
+
+
+
+state 36
+
+    Unary  ->  Super .   (rule 103)
+
+    $default	reduce using rule 103 (Unary)
+
+
+
+state 37
+
+    Super  ->  Primary . EXP Super   (rule 104)
+    Super  ->  Primary .   (rule 105)
+
+    EXP 	shift, and go to state 71
+
+    $default	reduce using rule 105 (Super)
+
+
+
+state 38
+
+    Primary  ->  Name . '(' Primary_1   (rule 114)
+    Primary  ->  Name .   (rule 115)
+
+    '(' 	shift, and go to state 72
+
+    $default	reduce using rule 115 (Primary)
+
+
+
+state 39
+
+    Types_1  ->  Type ';' . Types_1   (rule 10)
+
+    IDENTIFIER	shift, and go to state 2
+
+    $default	reduce using rule 9 (Types_1)
+
+    Types_1	go to state 73
+    Type	go to state 15
+    Name	go to state 16
+
+
+
+state 40
+
+    Type  ->  Name '=' . Name   (rule 11)
+    Type  ->  Name '=' . Lit   (rule 12)
+
+    IDENTIFIER	shift, and go to state 2
+    '(' 	shift, and go to state 74
+
+    Lit 	go to state 75
+    Name	go to state 76
+
+
+
+state 41
+
+    Dclns  ->  VAR Dclns_1 .   (rule 16)
+
+    $default	reduce using rule 16 (Dclns)
+
+
+
+state 42
+
+    Dclns_1  ->  Var . ';' Dclns_1   (rule 19)
+
+    ';' 	shift, and go to state 77
+
+
+
+state 43
+
+    Var  ->  Var_1 .   (rule 20)
+
+    $default	reduce using rule 20 (Var)
+
+
+
+state 44
+
+    Var_1  ->  Name . ':' Name   (rule 21)
+    Var_1  ->  Name . ',' Var_1   (rule 22)
+
+    ':' 	shift, and go to state 78
+    ',' 	shift, and go to state 79
+
+
+
+state 45
+
+    Procs  ->  FUNCTION . Name Params ':' Name ';' Consts Types Dclns Body Name ';'   (rule 26)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Name	go to state 80
+
+
+
+state 46
+
+    Procs  ->  PROCEDURE . Name Params ';' Consts Types Dclns Body Name ';'   (rule 27)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Name	go to state 81
+
+
+
+state 47
+
+    Tiny  ->  PROGRAM Name ':' Consts Types Dclns SubProgs . Body Name '.'   (rule 1)
+
+    BEGINX	shift, and go to state 82
+
+    Body	go to state 83
+
+
+
+state 48
+
+    SubProgs  ->  SubProgs_1 .   (rule 23)
+
+    $default	reduce using rule 23 (SubProgs)
+
+
+
+state 49
+
+    SubProgs_1  ->  Procs . SubProgs_1   (rule 25)
+
+    FUNCTION	shift, and go to state 45
+    PROCEDURE	shift, and go to state 46
+
+    $default	reduce using rule 24 (SubProgs_1)
+
+    SubProgs_1	go to state 84
+    Procs	go to state 49
+
+
+
+state 50
+
+    Primary  ->  CHR '(' . Expression ')'   (rule 113)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 85
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 51
+
+    Primary  ->  PRED '(' . Expression ')'   (rule 111)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 86
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 52
+
+    Unary  ->  NOT Unary .   (rule 102)
+
+    $default	reduce using rule 102 (Unary)
+
+
+
+state 53
+
+    Primary  ->  ORD '(' . Expression ')'   (rule 112)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 87
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 54
+
+    Primary  ->  SUCC '(' . Expression ')'   (rule 110)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 88
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 55
+
+    Primary  ->  '(' Expression . ')'   (rule 116)
+
+    ')' 	shift, and go to state 89
+
+
+
+state 56
+
+    Unary  ->  '+' Unary .   (rule 101)
+
+    $default	reduce using rule 101 (Unary)
+
+
+
+state 57
+
+    Unary  ->  '-' Unary .   (rule 100)
+
+    $default	reduce using rule 100 (Unary)
+
+
+
+state 58
+
+    Expression  ->  Term NEQ . Term   (rule 88)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Term	go to state 90
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 59
+
+    Expression  ->  Term GT . Term   (rule 90)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Term	go to state 91
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 60
+
+    Expression  ->  Term LE . Term   (rule 86)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Term	go to state 92
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 61
+
+    Expression  ->  Term GE . Term   (rule 89)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Term	go to state 93
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 62
+
+    Term  ->  Term OR . Factor   (rule 94)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Factor	go to state 94
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 63
+
+    Expression  ->  Term LT . Term   (rule 85)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Term	go to state 95
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 64
+
+    Expression  ->  Term '=' . Term   (rule 87)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Term	go to state 96
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 65
+
+    Term  ->  Term '+' . Factor   (rule 92)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Factor	go to state 97
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 66
+
+    Term  ->  Term '-' . Factor   (rule 93)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Factor	go to state 98
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 67
+
+    Factor  ->  Factor MOD . Unary   (rule 97)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Unary	go to state 99
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 68
+
+    Factor  ->  Factor AND . Unary   (rule 98)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Unary	go to state 100
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 69
+
+    Factor  ->  Factor '*' . Unary   (rule 95)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Unary	go to state 101
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 70
+
+    Factor  ->  Factor '/' . Unary   (rule 96)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Unary	go to state 102
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 71
+
+    Super  ->  Primary EXP . Super   (rule 104)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    Super	go to state 103
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 72
+
+    Primary  ->  Name '(' . Primary_1   (rule 114)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    ')' 	shift, and go to state 104
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 105
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Primary_1	go to state 106
+    Primary_1_1	go to state 107
+    Name	go to state 38
+
+
+
+state 73
+
+    Types_1  ->  Type ';' Types_1 .   (rule 10)
+
+    $default	reduce using rule 10 (Types_1)
+
+
+
+state 74
+
+    Lit  ->  '(' . Lit_1   (rule 13)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Lit_1	go to state 108
+    Name	go to state 109
+
+
+
+state 75
+
+    Type  ->  Name '=' Lit .   (rule 12)
+
+    $default	reduce using rule 12 (Type)
+
+
+
+state 76
+
+    Type  ->  Name '=' Name .   (rule 11)
+
+    $default	reduce using rule 11 (Type)
+
+
+
+state 77
+
+    Dclns_1  ->  Var ';' . Dclns_1   (rule 19)
+
+    IDENTIFIER	shift, and go to state 2
+
+    $default	reduce using rule 18 (Dclns_1)
+
+    Dclns_1	go to state 110
+    Var 	go to state 42
+    Var_1	go to state 43
+    Name	go to state 44
+
+
+
+state 78
+
+    Var_1  ->  Name ':' . Name   (rule 21)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Name	go to state 111
+
+
+
+state 79
+
+    Var_1  ->  Name ',' . Var_1   (rule 22)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Var_1	go to state 112
+    Name	go to state 44
+
+
+
+state 80
+
+    Procs  ->  FUNCTION Name . Params ':' Name ';' Consts Types Dclns Body Name ';'   (rule 26)
+
+    '(' 	shift, and go to state 113
+
+    $default	reduce using rule 29 (Params_1)
+
+    Params	go to state 114
+    Params_1	go to state 115
+
+
+
+state 81
+
+    Procs  ->  PROCEDURE Name . Params ';' Consts Types Dclns Body Name ';'   (rule 27)
+
+    '(' 	shift, and go to state 113
+
+    $default	reduce using rule 29 (Params_1)
+
+    Params	go to state 116
+    Params_1	go to state 115
+
+
+
+state 82
+
+    Body  ->  BEGINX . Body_1   (rule 35)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Body_1	go to state 128
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 131
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 83
+
+    Tiny  ->  PROGRAM Name ':' Consts Types Dclns SubProgs Body . Name '.'   (rule 1)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Name	go to state 134
+
+
+
+state 84
+
+    SubProgs_1  ->  Procs SubProgs_1 .   (rule 25)
+
+    $default	reduce using rule 25 (SubProgs_1)
+
+
+
+state 85
+
+    Primary  ->  CHR '(' Expression . ')'   (rule 113)
+
+    ')' 	shift, and go to state 135
+
+
+
+state 86
+
+    Primary  ->  PRED '(' Expression . ')'   (rule 111)
+
+    ')' 	shift, and go to state 136
+
+
+
+state 87
+
+    Primary  ->  ORD '(' Expression . ')'   (rule 112)
+
+    ')' 	shift, and go to state 137
+
+
+
+state 88
+
+    Primary  ->  SUCC '(' Expression . ')'   (rule 110)
+
+    ')' 	shift, and go to state 138
+
+
+
+state 89
+
+    Primary  ->  '(' Expression ')' .   (rule 116)
+
+    $default	reduce using rule 116 (Primary)
+
+
+
+state 90
+
+    Expression  ->  Term NEQ Term .   (rule 88)
+    Term  ->  Term . '+' Factor   (rule 92)
+    Term  ->  Term . '-' Factor   (rule 93)
+    Term  ->  Term . OR Factor   (rule 94)
+
+    OR  	shift, and go to state 62
+    '+' 	shift, and go to state 65
+    '-' 	shift, and go to state 66
+
+    $default	reduce using rule 88 (Expression)
+
+
+
+state 91
+
+    Expression  ->  Term GT Term .   (rule 90)
+    Term  ->  Term . '+' Factor   (rule 92)
+    Term  ->  Term . '-' Factor   (rule 93)
+    Term  ->  Term . OR Factor   (rule 94)
+
+    OR  	shift, and go to state 62
+    '+' 	shift, and go to state 65
+    '-' 	shift, and go to state 66
+
+    $default	reduce using rule 90 (Expression)
+
+
+
+state 92
+
+    Expression  ->  Term LE Term .   (rule 86)
+    Term  ->  Term . '+' Factor   (rule 92)
+    Term  ->  Term . '-' Factor   (rule 93)
+    Term  ->  Term . OR Factor   (rule 94)
+
+    OR  	shift, and go to state 62
+    '+' 	shift, and go to state 65
+    '-' 	shift, and go to state 66
+
+    $default	reduce using rule 86 (Expression)
+
+
+
+state 93
+
+    Expression  ->  Term GE Term .   (rule 89)
+    Term  ->  Term . '+' Factor   (rule 92)
+    Term  ->  Term . '-' Factor   (rule 93)
+    Term  ->  Term . OR Factor   (rule 94)
+
+    OR  	shift, and go to state 62
+    '+' 	shift, and go to state 65
+    '-' 	shift, and go to state 66
+
+    $default	reduce using rule 89 (Expression)
+
+
+
+state 94
+
+    Term  ->  Term OR Factor .   (rule 94)
+    Factor  ->  Factor . '*' Unary   (rule 95)
+    Factor  ->  Factor . '/' Unary   (rule 96)
+    Factor  ->  Factor . MOD Unary   (rule 97)
+    Factor  ->  Factor . AND Unary   (rule 98)
+
+    MOD 	shift, and go to state 67
+    AND 	shift, and go to state 68
+    '*' 	shift, and go to state 69
+    '/' 	shift, and go to state 70
+
+    $default	reduce using rule 94 (Term)
+
+
+
+state 95
+
+    Expression  ->  Term LT Term .   (rule 85)
+    Term  ->  Term . '+' Factor   (rule 92)
+    Term  ->  Term . '-' Factor   (rule 93)
+    Term  ->  Term . OR Factor   (rule 94)
+
+    OR  	shift, and go to state 62
+    '+' 	shift, and go to state 65
+    '-' 	shift, and go to state 66
+
+    $default	reduce using rule 85 (Expression)
+
+
+
+state 96
+
+    Expression  ->  Term '=' Term .   (rule 87)
+    Term  ->  Term . '+' Factor   (rule 92)
+    Term  ->  Term . '-' Factor   (rule 93)
+    Term  ->  Term . OR Factor   (rule 94)
+
+    OR  	shift, and go to state 62
+    '+' 	shift, and go to state 65
+    '-' 	shift, and go to state 66
+
+    $default	reduce using rule 87 (Expression)
+
+
+
+state 97
+
+    Term  ->  Term '+' Factor .   (rule 92)
+    Factor  ->  Factor . '*' Unary   (rule 95)
+    Factor  ->  Factor . '/' Unary   (rule 96)
+    Factor  ->  Factor . MOD Unary   (rule 97)
+    Factor  ->  Factor . AND Unary   (rule 98)
+
+    MOD 	shift, and go to state 67
+    AND 	shift, and go to state 68
+    '*' 	shift, and go to state 69
+    '/' 	shift, and go to state 70
+
+    $default	reduce using rule 92 (Term)
+
+
+
+state 98
+
+    Term  ->  Term '-' Factor .   (rule 93)
+    Factor  ->  Factor . '*' Unary   (rule 95)
+    Factor  ->  Factor . '/' Unary   (rule 96)
+    Factor  ->  Factor . MOD Unary   (rule 97)
+    Factor  ->  Factor . AND Unary   (rule 98)
+
+    MOD 	shift, and go to state 67
+    AND 	shift, and go to state 68
+    '*' 	shift, and go to state 69
+    '/' 	shift, and go to state 70
+
+    $default	reduce using rule 93 (Term)
+
+
+
+state 99
+
+    Factor  ->  Factor MOD Unary .   (rule 97)
+
+    $default	reduce using rule 97 (Factor)
+
+
+
+state 100
+
+    Factor  ->  Factor AND Unary .   (rule 98)
+
+    $default	reduce using rule 98 (Factor)
+
+
+
+state 101
+
+    Factor  ->  Factor '*' Unary .   (rule 95)
+
+    $default	reduce using rule 95 (Factor)
+
+
+
+state 102
+
+    Factor  ->  Factor '/' Unary .   (rule 96)
+
+    $default	reduce using rule 96 (Factor)
+
+
+
+state 103
+
+    Super  ->  Primary EXP Super .   (rule 104)
+
+    $default	reduce using rule 104 (Super)
+
+
+
+state 104
+
+    Primary_1  ->  ')' .   (rule 117)
+
+    $default	reduce using rule 117 (Primary_1)
+
+
+
+state 105
+
+    Primary_1_1  ->  Expression . ')'   (rule 119)
+    Primary_1_1  ->  Expression . ',' Primary_1_1   (rule 120)
+
+    ')' 	shift, and go to state 139
+    ',' 	shift, and go to state 140
+
+
+
+state 106
+
+    Primary  ->  Name '(' Primary_1 .   (rule 114)
+
+    $default	reduce using rule 114 (Primary)
+
+
+
+state 107
+
+    Primary_1  ->  Primary_1_1 .   (rule 118)
+
+    $default	reduce using rule 118 (Primary_1)
+
+
+
+state 108
+
+    Lit  ->  '(' Lit_1 .   (rule 13)
+
+    $default	reduce using rule 13 (Lit)
+
+
+
+state 109
+
+    Lit_1  ->  Name . ')'   (rule 14)
+    Lit_1  ->  Name . ',' Lit_1   (rule 15)
+
+    ')' 	shift, and go to state 141
+    ',' 	shift, and go to state 142
+
+
+
+state 110
+
+    Dclns_1  ->  Var ';' Dclns_1 .   (rule 19)
+
+    $default	reduce using rule 19 (Dclns_1)
+
+
+
+state 111
+
+    Var_1  ->  Name ':' Name .   (rule 21)
+
+    $default	reduce using rule 21 (Var_1)
+
+
+
+state 112
+
+    Var_1  ->  Name ',' Var_1 .   (rule 22)
+
+    $default	reduce using rule 22 (Var_1)
+
+
+
+state 113
+
+    Params_1  ->  '(' . Params_1_1   (rule 30)
+
+    IDENTIFIER	shift, and go to state 2
+    ')' 	shift, and go to state 143
+
+    Var 	go to state 144
+    Var_1	go to state 43
+    Params_1_1	go to state 145
+    Params_1_1_1	go to state 146
+    Name	go to state 44
+
+
+
+state 114
+
+    Procs  ->  FUNCTION Name Params . ':' Name ';' Consts Types Dclns Body Name ';'   (rule 26)
+
+    ':' 	shift, and go to state 147
+
+
+
+state 115
+
+    Params  ->  Params_1 .   (rule 28)
+
+    $default	reduce using rule 28 (Params)
+
+
+
+state 116
+
+    Procs  ->  PROCEDURE Name Params . ';' Consts Types Dclns Body Name ';'   (rule 27)
+
+    ';' 	shift, and go to state 148
+
+
+
+state 117
+
+    Statement  ->  IF . Expression THEN Statement Statement_1_1   (rule 44)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 149
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 118
+
+    Statement  ->  READ . '(' Statement_1_1_1_1_1_1   (rule 53)
+
+    '(' 	shift, and go to state 150
+
+
+
+state 119
+
+    Statement  ->  REPEAT . Statement Statement_1_1_1   (rule 48)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 151
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 120
+
+    Statement  ->  RETURN . Statement_1_1_1_1_1_1_1_1   (rule 57)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    $default	reduce using rule 59 (Statement_1_1_1_1_1_1_1_1)
+
+    Statement_1_1_1_1_1_1_1_1	go to state 152
+    Expression	go to state 153
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 121
+
+    Statement  ->  FOR . Name ASSIGNMENT Expression TO Expression DO Statement   (rule 46)
+    Statement  ->  FOR . Name ASSIGNMENT Expression DOWNTO Expression DO Statement   (rule 47)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Name	go to state 154
+
+
+
+state 122
+
+    Statement  ->  CASE . Expression OF Statement_1_1_1_1_1   (rule 50)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 155
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 123
+
+    Statement  ->  WHILE . Expression DO Statement   (rule 45)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 156
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 124
+
+    Statement  ->  OUTPUT . '(' Statement_1   (rule 43)
+
+    '(' 	shift, and go to state 157
+
+
+
+state 125
+
+    Statement  ->  EXIT .   (rule 52)
+
+    $default	reduce using rule 52 (Statement)
+
+
+
+state 126
+
+    Statement  ->  LOOP . Statement_1_1_1_1   (rule 49)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 158
+    Statement_1_1_1_1	go to state 159
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 127
+
+    Statement  ->  Body .   (rule 54)
+
+    $default	reduce using rule 54 (Statement)
+
+
+
+state 128
+
+    Body  ->  BEGINX Body_1 .   (rule 35)
+
+    $default	reduce using rule 35 (Body)
+
+
+
+state 129
+
+    Statement  ->  Switch .   (rule 55)
+
+    $default	reduce using rule 55 (Statement)
+
+
+
+state 130
+
+    Switch  ->  Vals . ':' Statement ';'   (rule 38)
+
+    ':' 	shift, and go to state 160
+
+
+
+state 131
+
+    Body_1  ->  Statement . END   (rule 36)
+    Body_1  ->  Statement . ';' Body_1   (rule 37)
+
+    END 	shift, and go to state 161
+    ';' 	shift, and go to state 162
+
+
+
+state 132
+
+    Vals  ->  Primary . Vals_1   (rule 39)
+    Statement  ->  Primary . SWAP Primary   (rule 51)
+
+    RANGE	shift, and go to state 163
+    SWAP	shift, and go to state 164
+
+    $default	reduce using rule 40 (Vals_1)
+
+    Vals_1	go to state 165
+
+
+
+state 133
+
+    Statement  ->  Name . ASSIGNMENT Expression   (rule 42)
+    Statement  ->  Name . '(' Statement_1_1_1_1_1_1_1   (rule 56)
+    Primary  ->  Name . '(' Primary_1   (rule 114)
+    Primary  ->  Name .   (rule 115)
+
+    ASSIGNMENT	shift, and go to state 166
+    '(' 	shift, and go to state 167
+
+    $default	reduce using rule 115 (Primary)
+
+
+
+state 134
+
+    Tiny  ->  PROGRAM Name ':' Consts Types Dclns SubProgs Body Name . '.'   (rule 1)
+
+    '.' 	shift, and go to state 168
+
+
+
+state 135
+
+    Primary  ->  CHR '(' Expression ')' .   (rule 113)
+
+    $default	reduce using rule 113 (Primary)
+
+
+
+state 136
+
+    Primary  ->  PRED '(' Expression ')' .   (rule 111)
+
+    $default	reduce using rule 111 (Primary)
+
+
+
+state 137
+
+    Primary  ->  ORD '(' Expression ')' .   (rule 112)
+
+    $default	reduce using rule 112 (Primary)
+
+
+
+state 138
+
+    Primary  ->  SUCC '(' Expression ')' .   (rule 110)
+
+    $default	reduce using rule 110 (Primary)
+
+
+
+state 139
+
+    Primary_1_1  ->  Expression ')' .   (rule 119)
+
+    $default	reduce using rule 119 (Primary_1_1)
+
+
+
+state 140
+
+    Primary_1_1  ->  Expression ',' . Primary_1_1   (rule 120)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 105
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Primary_1_1	go to state 169
+    Name	go to state 38
+
+
+
+state 141
+
+    Lit_1  ->  Name ')' .   (rule 14)
+
+    $default	reduce using rule 14 (Lit_1)
+
+
+
+state 142
+
+    Lit_1  ->  Name ',' . Lit_1   (rule 15)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Lit_1	go to state 170
+    Name	go to state 109
+
+
+
+state 143
+
+    Params_1_1  ->  ')' .   (rule 31)
+
+    $default	reduce using rule 31 (Params_1_1)
+
+
+
+state 144
+
+    Params_1_1_1  ->  Var . ')'   (rule 33)
+    Params_1_1_1  ->  Var . ';' Params_1_1_1   (rule 34)
+
+    ';' 	shift, and go to state 171
+    ')' 	shift, and go to state 172
+
+
+
+state 145
+
+    Params_1  ->  '(' Params_1_1 .   (rule 30)
+
+    $default	reduce using rule 30 (Params_1)
+
+
+
+state 146
+
+    Params_1_1  ->  Params_1_1_1 .   (rule 32)
+
+    $default	reduce using rule 32 (Params_1_1)
+
+
+
+state 147
+
+    Procs  ->  FUNCTION Name Params ':' . Name ';' Consts Types Dclns Body Name ';'   (rule 26)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Name	go to state 173
+
+
+
+state 148
+
+    Procs  ->  PROCEDURE Name Params ';' . Consts Types Dclns Body Name ';'   (rule 27)
+
+    CONST	shift, and go to state 5
+
+    $default	reduce using rule 3 (Consts)
+
+    Consts	go to state 174
+
+
+
+state 149
+
+    Statement  ->  IF Expression . THEN Statement Statement_1_1   (rule 44)
+
+    THEN	shift, and go to state 175
+
+
+
+state 150
+
+    Statement  ->  READ '(' . Statement_1_1_1_1_1_1   (rule 53)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Statement_1_1_1_1_1_1	go to state 176
+    Name	go to state 177
+
+
+
+state 151
+
+    Statement  ->  REPEAT Statement . Statement_1_1_1   (rule 48)
+
+    UNTIL	shift, and go to state 178
+    ';' 	shift, and go to state 179
+
+    Statement_1_1_1	go to state 180
+
+
+
+state 152
+
+    Statement  ->  RETURN Statement_1_1_1_1_1_1_1_1 .   (rule 57)
+
+    $default	reduce using rule 57 (Statement)
+
+
+
+state 153
+
+    Statement_1_1_1_1_1_1_1_1  ->  Expression .   (rule 60)
+
+    $default	reduce using rule 60 (Statement_1_1_1_1_1_1_1_1)
+
+
+
+state 154
+
+    Statement  ->  FOR Name . ASSIGNMENT Expression TO Expression DO Statement   (rule 46)
+    Statement  ->  FOR Name . ASSIGNMENT Expression DOWNTO Expression DO Statement   (rule 47)
+
+    ASSIGNMENT	shift, and go to state 181
+
+
+
+state 155
+
+    Statement  ->  CASE Expression . OF Statement_1_1_1_1_1   (rule 50)
+
+    OF  	shift, and go to state 182
+
+
+
+state 156
+
+    Statement  ->  WHILE Expression . DO Statement   (rule 45)
+
+    DO  	shift, and go to state 183
+
+
+
+state 157
+
+    Statement  ->  OUTPUT '(' . Statement_1   (rule 43)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Statement_1	go to state 184
+    Expression	go to state 185
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 158
+
+    Statement_1_1_1_1  ->  Statement . POOL   (rule 71)
+    Statement_1_1_1_1  ->  Statement . ';' Statement_1_1_1_1   (rule 72)
+
+    POOL	shift, and go to state 186
+    ';' 	shift, and go to state 187
+
+
+
+state 159
+
+    Statement  ->  LOOP Statement_1_1_1_1 .   (rule 49)
+
+    $default	reduce using rule 49 (Statement)
+
+
+
+state 160
+
+    Switch  ->  Vals ':' . Statement ';'   (rule 38)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 188
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 161
+
+    Body_1  ->  Statement END .   (rule 36)
+
+    $default	reduce using rule 36 (Body_1)
+
+
+
+state 162
+
+    Body_1  ->  Statement ';' . Body_1   (rule 37)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Body_1	go to state 189
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 131
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 163
+
+    Vals_1  ->  RANGE . Primary   (rule 41)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    Primary	go to state 190
+    Name	go to state 38
+
+
+
+state 164
+
+    Statement  ->  Primary SWAP . Primary   (rule 51)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    Primary	go to state 191
+    Name	go to state 38
+
+
+
+state 165
+
+    Vals  ->  Primary Vals_1 .   (rule 39)
+
+    $default	reduce using rule 39 (Vals)
+
+
+
+state 166
+
+    Statement  ->  Name ASSIGNMENT . Expression   (rule 42)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 192
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 167
+
+    Statement  ->  Name '(' . Statement_1_1_1_1_1_1_1   (rule 56)
+    Primary  ->  Name '(' . Primary_1   (rule 114)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    ')' 	shift, and go to state 193
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Statement_1_1_1_1_1_1_1	go to state 194
+    Statement_1_1_1_1_1_1_1_1_1	go to state 195
+    Expression	go to state 196
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Primary_1	go to state 106
+    Primary_1_1	go to state 107
+    Name	go to state 38
+
+
+
+state 168
+
+    Tiny  ->  PROGRAM Name ':' Consts Types Dclns SubProgs Body Name '.' .   (rule 1)
+
+    $default	reduce using rule 1 (Tiny)
+
+
+
+state 169
+
+    Primary_1_1  ->  Expression ',' Primary_1_1 .   (rule 120)
+
+    $default	reduce using rule 120 (Primary_1_1)
+
+
+
+state 170
+
+    Lit_1  ->  Name ',' Lit_1 .   (rule 15)
+
+    $default	reduce using rule 15 (Lit_1)
+
+
+
+state 171
+
+    Params_1_1_1  ->  Var ';' . Params_1_1_1   (rule 34)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Var 	go to state 144
+    Var_1	go to state 43
+    Params_1_1_1	go to state 197
+    Name	go to state 44
+
+
+
+state 172
+
+    Params_1_1_1  ->  Var ')' .   (rule 33)
+
+    $default	reduce using rule 33 (Params_1_1_1)
+
+
+
+state 173
+
+    Procs  ->  FUNCTION Name Params ':' Name . ';' Consts Types Dclns Body Name ';'   (rule 26)
+
+    ';' 	shift, and go to state 198
+
+
+
+state 174
+
+    Procs  ->  PROCEDURE Name Params ';' Consts . Types Dclns Body Name ';'   (rule 27)
+
+    TYPE	shift, and go to state 10
+
+    $default	reduce using rule 8 (Types)
+
+    Types	go to state 199
+
+
+
+state 175
+
+    Statement  ->  IF Expression THEN . Statement Statement_1_1   (rule 44)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 200
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 176
+
+    Statement  ->  READ '(' Statement_1_1_1_1_1_1 .   (rule 53)
+
+    $default	reduce using rule 53 (Statement)
+
+
+
+state 177
+
+    Statement_1_1_1_1_1_1  ->  Name . ')'   (rule 65)
+    Statement_1_1_1_1_1_1  ->  Name . ',' Statement_1_1_1_1_1_1   (rule 66)
+
+    ')' 	shift, and go to state 201
+    ',' 	shift, and go to state 202
+
+
+
+state 178
+
+    Statement_1_1_1  ->  UNTIL . Expression   (rule 73)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 203
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 179
+
+    Statement_1_1_1  ->  ';' . Statement Statement_1_1_1   (rule 74)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 204
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 180
+
+    Statement  ->  REPEAT Statement Statement_1_1_1 .   (rule 48)
+
+    $default	reduce using rule 48 (Statement)
+
+
+
+state 181
+
+    Statement  ->  FOR Name ASSIGNMENT . Expression TO Expression DO Statement   (rule 46)
+    Statement  ->  FOR Name ASSIGNMENT . Expression DOWNTO Expression DO Statement   (rule 47)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 205
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 182
+
+    Statement  ->  CASE Expression OF . Statement_1_1_1_1_1   (rule 50)
+
+    END 	shift, and go to state 206
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    OTHERWISE	shift, and go to state 207
+    '(' 	shift, and go to state 29
+
+    Switch	go to state 208
+    Vals	go to state 130
+    Statement_1_1_1_1_1	go to state 209
+    Statement_1_1_1_1_1_1_1_1_1_1	go to state 210
+    Otherwise	go to state 211
+    Primary	go to state 212
+    Name	go to state 38
+
+
+
+state 183
+
+    Statement  ->  WHILE Expression DO . Statement   (rule 45)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 213
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 184
+
+    Statement  ->  OUTPUT '(' Statement_1 .   (rule 43)
+
+    $default	reduce using rule 43 (Statement)
+
+
+
+state 185
+
+    Statement_1  ->  Expression . ')'   (rule 77)
+    Statement_1  ->  Expression . ',' Statement_1   (rule 78)
+
+    ')' 	shift, and go to state 214
+    ',' 	shift, and go to state 215
+
+
+
+state 186
+
+    Statement_1_1_1_1  ->  Statement POOL .   (rule 71)
+
+    $default	reduce using rule 71 (Statement_1_1_1_1)
+
+
+
+state 187
+
+    Statement_1_1_1_1  ->  Statement ';' . Statement_1_1_1_1   (rule 72)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 158
+    Statement_1_1_1_1	go to state 216
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 188
+
+    Switch  ->  Vals ':' Statement . ';'   (rule 38)
+
+    ';' 	shift, and go to state 217
+
+
+
+state 189
+
+    Body_1  ->  Statement ';' Body_1 .   (rule 37)
+
+    $default	reduce using rule 37 (Body_1)
+
+
+
+state 190
+
+    Vals_1  ->  RANGE Primary .   (rule 41)
+
+    $default	reduce using rule 41 (Vals_1)
+
+
+
+state 191
+
+    Statement  ->  Primary SWAP Primary .   (rule 51)
+
+    $default	reduce using rule 51 (Statement)
+
+
+
+state 192
+
+    Statement  ->  Name ASSIGNMENT Expression .   (rule 42)
+
+    $default	reduce using rule 42 (Statement)
+
+
+
+state 193
+
+    Statement_1_1_1_1_1_1_1  ->  ')' .   (rule 61)
+    Primary_1  ->  ')' .   (rule 117)
+
+    RANGE	reduce using rule 117 (Primary_1)
+    SWAP	reduce using rule 117 (Primary_1)
+    DOWNTO	reduce using rule 117 (Primary_1)
+    '.' 	reduce using rule 117 (Primary_1)
+    $default	reduce using rule 61 (Statement_1_1_1_1_1_1_1)
+
+
+
+state 194
+
+    Statement  ->  Name '(' Statement_1_1_1_1_1_1_1 .   (rule 56)
+
+    $default	reduce using rule 56 (Statement)
+
+
+
+state 195
+
+    Statement_1_1_1_1_1_1_1  ->  Statement_1_1_1_1_1_1_1_1_1 .   (rule 62)
+
+    $default	reduce using rule 62 (Statement_1_1_1_1_1_1_1)
+
+
+
+state 196
+
+    Statement_1_1_1_1_1_1_1_1_1  ->  Expression . ')'   (rule 63)
+    Statement_1_1_1_1_1_1_1_1_1  ->  Expression . ',' Statement_1_1_1_1_1_1_1_1_1   (rule 64)
+    Primary_1_1  ->  Expression . ')'   (rule 119)
+    Primary_1_1  ->  Expression . ',' Primary_1_1   (rule 120)
+
+    ')' 	shift, and go to state 218
+    ',' 	shift, and go to state 219
+
+
+
+state 197
+
+    Params_1_1_1  ->  Var ';' Params_1_1_1 .   (rule 34)
+
+    $default	reduce using rule 34 (Params_1_1_1)
+
+
+
+state 198
+
+    Procs  ->  FUNCTION Name Params ':' Name ';' . Consts Types Dclns Body Name ';'   (rule 26)
+
+    CONST	shift, and go to state 5
+
+    $default	reduce using rule 3 (Consts)
+
+    Consts	go to state 220
+
+
+
+state 199
+
+    Procs  ->  PROCEDURE Name Params ';' Consts Types . Dclns Body Name ';'   (rule 27)
+
+    VAR 	shift, and go to state 17
+
+    $default	reduce using rule 17 (Dclns)
+
+    Dclns	go to state 221
+
+
+
+state 200
+
+    Statement  ->  IF Expression THEN Statement . Statement_1_1   (rule 44)
+
+    ELSE	shift, and go to state 222
+
+    ELSE	[reduce using rule 75 (Statement_1_1)]
+    $default	reduce using rule 75 (Statement_1_1)
+
+    Statement_1_1	go to state 223
+
+
+
+state 201
+
+    Statement_1_1_1_1_1_1  ->  Name ')' .   (rule 65)
+
+    $default	reduce using rule 65 (Statement_1_1_1_1_1_1)
+
+
+
+state 202
+
+    Statement_1_1_1_1_1_1  ->  Name ',' . Statement_1_1_1_1_1_1   (rule 66)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Statement_1_1_1_1_1_1	go to state 224
+    Name	go to state 177
+
+
+
+state 203
+
+    Statement_1_1_1  ->  UNTIL Expression .   (rule 73)
+
+    $default	reduce using rule 73 (Statement_1_1_1)
+
+
+
+state 204
+
+    Statement_1_1_1  ->  ';' Statement . Statement_1_1_1   (rule 74)
+
+    UNTIL	shift, and go to state 178
+    ';' 	shift, and go to state 179
+
+    Statement_1_1_1	go to state 225
+
+
+
+state 205
+
+    Statement  ->  FOR Name ASSIGNMENT Expression . TO Expression DO Statement   (rule 46)
+    Statement  ->  FOR Name ASSIGNMENT Expression . DOWNTO Expression DO Statement   (rule 47)
+
+    TO  	shift, and go to state 226
+    DOWNTO	shift, and go to state 227
+
+
+
+state 206
+
+    Statement_1_1_1_1_1_1_1_1_1_1  ->  END .   (rule 69)
+
+    $default	reduce using rule 69 (Statement_1_1_1_1_1_1_1_1_1_1)
+
+
+
+state 207
+
+    Otherwise  ->  OTHERWISE . Otherwise_1   (rule 79)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    END 	reduce using rule 58 (Statement)
+    END 	[reduce using rule 80 (Otherwise_1)]
+    DO  	reduce using rule 58 (Statement)
+    DO  	[reduce using rule 80 (Otherwise_1)]
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 228
+    Otherwise_1	go to state 229
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 208
+
+    Statement_1_1_1_1_1  ->  Switch . Statement_1_1_1_1_1   (rule 68)
+
+    END 	shift, and go to state 206
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    OTHERWISE	shift, and go to state 207
+    '(' 	shift, and go to state 29
+
+    Switch	go to state 208
+    Vals	go to state 130
+    Statement_1_1_1_1_1	go to state 230
+    Statement_1_1_1_1_1_1_1_1_1_1	go to state 210
+    Otherwise	go to state 211
+    Primary	go to state 212
+    Name	go to state 38
+
+
+
+state 209
+
+    Statement  ->  CASE Expression OF Statement_1_1_1_1_1 .   (rule 50)
+
+    $default	reduce using rule 50 (Statement)
+
+
+
+state 210
+
+    Statement_1_1_1_1_1  ->  Statement_1_1_1_1_1_1_1_1_1_1 .   (rule 67)
+
+    $default	reduce using rule 67 (Statement_1_1_1_1_1)
+
+
+
+state 211
+
+    Statement_1_1_1_1_1_1_1_1_1_1  ->  Otherwise . END   (rule 70)
+
+    END 	shift, and go to state 231
+
+
+
+state 212
+
+    Vals  ->  Primary . Vals_1   (rule 39)
+
+    RANGE	shift, and go to state 163
+
+    $default	reduce using rule 40 (Vals_1)
+
+    Vals_1	go to state 165
+
+
+
+state 213
+
+    Statement  ->  WHILE Expression DO Statement .   (rule 45)
+
+    $default	reduce using rule 45 (Statement)
+
+
+
+state 214
+
+    Statement_1  ->  Expression ')' .   (rule 77)
+
+    $default	reduce using rule 77 (Statement_1)
+
+
+
+state 215
+
+    Statement_1  ->  Expression ',' . Statement_1   (rule 78)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Statement_1	go to state 232
+    Expression	go to state 185
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 216
+
+    Statement_1_1_1_1  ->  Statement ';' Statement_1_1_1_1 .   (rule 72)
+
+    $default	reduce using rule 72 (Statement_1_1_1_1)
+
+
+
+state 217
+
+    Switch  ->  Vals ':' Statement ';' .   (rule 38)
+
+    $default	reduce using rule 38 (Switch)
+
+
+
+state 218
+
+    Statement_1_1_1_1_1_1_1_1_1  ->  Expression ')' .   (rule 63)
+    Primary_1_1  ->  Expression ')' .   (rule 119)
+
+    RANGE	reduce using rule 119 (Primary_1_1)
+    SWAP	reduce using rule 119 (Primary_1_1)
+    DOWNTO	reduce using rule 119 (Primary_1_1)
+    '.' 	reduce using rule 119 (Primary_1_1)
+    $default	reduce using rule 63 (Statement_1_1_1_1_1_1_1_1_1)
+
+
+
+state 219
+
+    Statement_1_1_1_1_1_1_1_1_1  ->  Expression ',' . Statement_1_1_1_1_1_1_1_1_1   (rule 64)
+    Primary_1_1  ->  Expression ',' . Primary_1_1   (rule 120)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Statement_1_1_1_1_1_1_1_1_1	go to state 233
+    Expression	go to state 196
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Primary_1_1	go to state 169
+    Name	go to state 38
+
+
+
+state 220
+
+    Procs  ->  FUNCTION Name Params ':' Name ';' Consts . Types Dclns Body Name ';'   (rule 26)
+
+    TYPE	shift, and go to state 10
+
+    $default	reduce using rule 8 (Types)
+
+    Types	go to state 234
+
+
+
+state 221
+
+    Procs  ->  PROCEDURE Name Params ';' Consts Types Dclns . Body Name ';'   (rule 27)
+
+    BEGINX	shift, and go to state 82
+
+    Body	go to state 235
+
+
+
+state 222
+
+    Statement_1_1  ->  ELSE . Statement   (rule 76)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 236
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 223
+
+    Statement  ->  IF Expression THEN Statement Statement_1_1 .   (rule 44)
+
+    $default	reduce using rule 44 (Statement)
+
+
+
+state 224
+
+    Statement_1_1_1_1_1_1  ->  Name ',' Statement_1_1_1_1_1_1 .   (rule 66)
+
+    $default	reduce using rule 66 (Statement_1_1_1_1_1_1)
+
+
+
+state 225
+
+    Statement_1_1_1  ->  ';' Statement Statement_1_1_1 .   (rule 74)
+
+    $default	reduce using rule 74 (Statement_1_1_1)
+
+
+
+state 226
+
+    Statement  ->  FOR Name ASSIGNMENT Expression TO . Expression DO Statement   (rule 46)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 237
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 227
+
+    Statement  ->  FOR Name ASSIGNMENT Expression DOWNTO . Expression DO Statement   (rule 47)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    PRED	shift, and go to state 24
+    NOT 	shift, and go to state 25
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+    '+' 	shift, and go to state 30
+    '-' 	shift, and go to state 31
+
+    Expression	go to state 238
+    Term	go to state 33
+    Factor	go to state 34
+    Unary	go to state 35
+    Super	go to state 36
+    Primary	go to state 37
+    Name	go to state 38
+
+
+
+state 228
+
+    Otherwise_1  ->  Statement . Otherwise_1_1   (rule 81)
+
+    ';' 	shift, and go to state 239
+
+    $default	reduce using rule 82 (Otherwise_1_1)
+
+    Otherwise_1_1	go to state 240
+
+
+
+state 229
+
+    Otherwise  ->  OTHERWISE Otherwise_1 .   (rule 79)
+
+    $default	reduce using rule 79 (Otherwise)
+
+
+
+state 230
+
+    Statement_1_1_1_1_1  ->  Switch Statement_1_1_1_1_1 .   (rule 68)
+
+    $default	reduce using rule 68 (Statement_1_1_1_1_1)
+
+
+
+state 231
+
+    Statement_1_1_1_1_1_1_1_1_1_1  ->  Otherwise END .   (rule 70)
+
+    $default	reduce using rule 70 (Statement_1_1_1_1_1_1_1_1_1_1)
+
+
+
+state 232
+
+    Statement_1  ->  Expression ',' Statement_1 .   (rule 78)
+
+    $default	reduce using rule 78 (Statement_1)
+
+
+
+state 233
+
+    Statement_1_1_1_1_1_1_1_1_1  ->  Expression ',' Statement_1_1_1_1_1_1_1_1_1 .   (rule 64)
+
+    $default	reduce using rule 64 (Statement_1_1_1_1_1_1_1_1_1)
+
+
+
+state 234
+
+    Procs  ->  FUNCTION Name Params ':' Name ';' Consts Types . Dclns Body Name ';'   (rule 26)
+
+    VAR 	shift, and go to state 17
+
+    $default	reduce using rule 17 (Dclns)
+
+    Dclns	go to state 241
+
+
+
+state 235
+
+    Procs  ->  PROCEDURE Name Params ';' Consts Types Dclns Body . Name ';'   (rule 27)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Name	go to state 242
+
+
+
+state 236
+
+    Statement_1_1  ->  ELSE Statement .   (rule 76)
+
+    $default	reduce using rule 76 (Statement_1_1)
+
+
+
+state 237
+
+    Statement  ->  FOR Name ASSIGNMENT Expression TO Expression . DO Statement   (rule 46)
+
+    DO  	shift, and go to state 243
+
+
+
+state 238
+
+    Statement  ->  FOR Name ASSIGNMENT Expression DOWNTO Expression . DO Statement   (rule 47)
+
+    DO  	shift, and go to state 244
+
+
+
+state 239
+
+    Otherwise_1_1  ->  ';' .   (rule 83)
+
+    $default	reduce using rule 83 (Otherwise_1_1)
+
+
+
+state 240
+
+    Otherwise_1  ->  Statement Otherwise_1_1 .   (rule 81)
+
+    $default	reduce using rule 81 (Otherwise_1)
+
+
+
+state 241
+
+    Procs  ->  FUNCTION Name Params ':' Name ';' Consts Types Dclns . Body Name ';'   (rule 26)
+
+    BEGINX	shift, and go to state 82
+
+    Body	go to state 245
+
+
+
+state 242
+
+    Procs  ->  PROCEDURE Name Params ';' Consts Types Dclns Body Name . ';'   (rule 27)
+
+    ';' 	shift, and go to state 246
+
+
+
+state 243
+
+    Statement  ->  FOR Name ASSIGNMENT Expression TO Expression DO . Statement   (rule 46)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 247
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 244
+
+    Statement  ->  FOR Name ASSIGNMENT Expression DOWNTO Expression DO . Statement   (rule 47)
+
+    STR 	shift, and go to state 20
+    EOFF	shift, and go to state 21
+    IDENTIFIER	shift, and go to state 2
+    CHR 	shift, and go to state 22
+    CHAR_NUM	shift, and go to state 23
+    IF  	shift, and go to state 117
+    READ	shift, and go to state 118
+    REPEAT	shift, and go to state 119
+    RETURN	shift, and go to state 120
+    FOR 	shift, and go to state 121
+    CASE	shift, and go to state 122
+    WHILE	shift, and go to state 123
+    OUTPUT	shift, and go to state 124
+    EXIT	shift, and go to state 125
+    PRED	shift, and go to state 24
+    BEGINX	shift, and go to state 82
+    ORD 	shift, and go to state 26
+    INTEGER_NUM	shift, and go to state 27
+    LOOP	shift, and go to state 126
+    SUCC	shift, and go to state 28
+    '(' 	shift, and go to state 29
+
+    $default	reduce using rule 58 (Statement)
+
+    Body	go to state 127
+    Switch	go to state 129
+    Vals	go to state 130
+    Statement	go to state 248
+    Primary	go to state 132
+    Name	go to state 133
+
+
+
+state 245
+
+    Procs  ->  FUNCTION Name Params ':' Name ';' Consts Types Dclns Body . Name ';'   (rule 26)
+
+    IDENTIFIER	shift, and go to state 2
+
+    Name	go to state 249
+
+
+
+state 246
+
+    Procs  ->  PROCEDURE Name Params ';' Consts Types Dclns Body Name ';' .   (rule 27)
+
+    $default	reduce using rule 27 (Procs)
+
+
+
+state 247
+
+    Statement  ->  FOR Name ASSIGNMENT Expression TO Expression DO Statement .   (rule 46)
+
+    $default	reduce using rule 46 (Statement)
+
+
+
+state 248
+
+    Statement  ->  FOR Name ASSIGNMENT Expression DOWNTO Expression DO Statement .   (rule 47)
+
+    $default	reduce using rule 47 (Statement)
+
+
+
+state 249
+
+    Procs  ->  FUNCTION Name Params ':' Name ';' Consts Types Dclns Body Name . ';'   (rule 26)
+
+    ';' 	shift, and go to state 250
+
+
+
+state 250
+
+    Procs  ->  FUNCTION Name Params ':' Name ';' Consts Types Dclns Body Name ';' .   (rule 26)
+
+    $default	reduce using rule 26 (Procs)
+
+
+
+state 251
+
+    $   	go to state 252
+
+
+
+state 252
+
+    $   	go to state 253
+
+
+
+state 253
+
+    $default	accept

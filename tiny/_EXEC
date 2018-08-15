@@ -1,0 +1,268 @@
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+Executing Instruction at line  1 : LIT  0 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR     0          
+Executing Instruction at line  2 : LIT  0 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR     0          
+     1         0          
+Executing Instruction at line  3 : GOTO  27 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR     0          
+     1         0          
+Executing Instruction at line  27 : LIT  13 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR     0          
+     1         0          
+     2        13          
+Executing Instruction at line  28 : SGV  0 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1         0          
+Executing Instruction at line  29 : LIT  2 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1         0          
+     2         2          
+Executing Instruction at line  30 : UOP UNEG 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1         0          
+     2        -2          
+Executing Instruction at line  31 : SGV  1 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -2          
+Executing Instruction at line  32 : LGV  0 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -2          
+     2        13          
+Executing Instruction at line  33 : SOS OUTPUT 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -2          
+Executing Instruction at line  34 : LGV  1 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -2          
+     2        -2          
+Executing Instruction at line  35 : SOS OUTPUT 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -2          
+Executing Instruction at line  36 : SOS OUTPUTL 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -2          
+Executing Instruction at line  37 : LIT  0 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -2          
+     2         0          
+Executing Instruction at line  38 : LGV  1 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -2          
+     2         0          
+     3        -2          
+Executing Instruction at line  39 : CODE  5 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -2          
+     2         0          
+     3        -2          
+     4         5          
+Executing Instruction at line  40 : CALL  2 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -2          
+     2 LBR     0          
+     3        -2          
+Executing Instruction at line  5 : LLV  1 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -2          
+     2 LBR     0          
+     3        -2          
+     4        -2          
+Executing Instruction at line  6 : SOS OUTPUT 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -2          
+     2 LBR     0          
+     3        -2          
+Executing Instruction at line  7 : LGV  1 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -2          
+     2 LBR     0          
+     3        -2          
+     4        -2          
+Executing Instruction at line  8 : SOS OUTPUT 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -2          
+     2 LBR     0          
+     3        -2          
+Executing Instruction at line  9 : SOS OUTPUTL 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -2          
+     2 LBR     0          
+     3        -2          
+Executing Instruction at line  10 : LGV  1 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -2          
+     2 LBR     0          
+     3        -2          
+     4        -2          
+Executing Instruction at line  11 : LIT  1 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -2          
+     2 LBR     0          
+     3        -2          
+     4        -2          
+     5         1          
+Executing Instruction at line  12 : BOP BPLUS 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -2          
+     2 LBR     0          
+     3        -2          
+     4        -1          
+Executing Instruction at line  13 : SGV  1 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -1          
+     2 LBR     0          
+     3        -2          
+Executing Instruction at line  14 : LLV  1 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -1          
+     2 LBR     0          
+     3        -2          
+     4        -2          
+Executing Instruction at line  15 : LIT  0 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -1          
+     2 LBR     0          
+     3        -2          
+     4        -2          
+     5         0          
+Executing Instruction at line  16 : BOP BGT 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -1          
+     2 LBR     0          
+     3        -2          
+     4         0          
+Executing Instruction at line  17 : COND  18  21 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -1          
+     2 LBR     0          
+     3        -2          
+Executing Instruction at line  21 : LIT  0 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0        13            1          40
+     1        -1          
+     2 LBR     0          
+     3        -2          
+     4         0          
+Executing Instruction at line  22 : RTN  1 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -1          
+     2         0          
+Executing Instruction at line  41 : COND  42  46 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -1          
+Executing Instruction at line  46 : LIT  0 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -1          
+     2         0          
+Executing Instruction at line  47 : SOS OUTPUT 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -1          
+Executing Instruction at line  48 : SOS OUTPUTL 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -1          
+Executing Instruction at line  49 : NOP  0 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -1          
+Executing Instruction at line  50 : NOP  0 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -1          
+Executing Instruction at line  51 : LGV  0 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -1          
+     2        13          
+Executing Instruction at line  52 : SOS OUTPUT 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -1          
+Executing Instruction at line  53 : LGV  1 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -1          
+     2        -1          
+Executing Instruction at line  54 : SOS OUTPUT 
+    DATA MEMORY             RETURN MEMORY
+    -----------             -------------
+     0 LBR    13          
+     1        -1          
+Executing Instruction at line  55 : SOS OUTPUTL 
